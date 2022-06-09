@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Тесты{% endblock %}
+
+{% block content %}
+    <select id="doc-type">
+        <option value="PDF">PDF</option>
+        <option value="XLS">XLS</option>
+        <option value="DOCX">DOCX</option>
+    </select>
+
+    <select id="action-type">
+        <option value="Save">Save to Disk</option>
+        <option value="Email">Email</option>
+        <option value="Stream">To Front</option>
+    </select>
+
+    <button id="action-button">Go!</button>
+{% endblock %}
+
+{% block localJavascripts %}
+<script>
+    $('#action-button').click(function() {
+        let doc = $('#doc-type').val()
+        let action = $('#action-type').val()
+        window.location.href = '/action/?doc=' + doc + '&action=' + action
+    })
+</script>
+{% endblock %}
