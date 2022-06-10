@@ -6,5 +6,6 @@ class GenerateXLSService
 {
     public function generate(array $data, $target)
     {
+
     }
 }

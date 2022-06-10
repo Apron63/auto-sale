@@ -13,7 +13,7 @@ class GeneratePDFService
         $this->tcpdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8');
 
         $this->tcpdf->SetCreator(PDF_CREATOR);
-        $this->tcpdf->SetAuthor('Nicola Asuni');
+        $this->tcpdf->SetAuthor('Test');
 
         // remove default header/footer
         $this->tcpdf->setPrintHeader(false);

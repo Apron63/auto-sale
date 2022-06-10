@@ -7,6 +7,7 @@ use App\Service\GenerateDOCXService;
 use App\Service\GeneratePDFService;
 use App\Service\GenerateXLSService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -40,7 +41,7 @@ class ActionController extends AbstractController
     {
         $docType = $request->get('doc', '');
         $action = $request->get('action', '');
-        $data = $this->documentService->prepareDocument($docType);
+        $data = $this->documentService->prepareDocument();
         $target = getcwd() . '/report/' . uniqid();
 
         switch ($docType) {
@@ -67,12 +68,15 @@ class ActionController extends AbstractController
             case 'Email':
                 $this->documentService->sendEmail($target);
                 return new Response ('Email send');
-            case 'Stream':
+            case 'Browser':
                 $response = new StreamedResponse();
                 $response->setCallback(function () use ($target) {
                     echo file_get_contents($target);
                 });
                 $response->headers->set('Content-Type', $contentType);
+                $response->send();
+            case 'Stream':
+                $response = new BinaryFileResponse($target);
                 $response->send();
         }
 

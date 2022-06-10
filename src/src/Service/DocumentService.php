@@ -14,10 +14,9 @@ class DocumentService
     }
 
     /**
-     * @param string $docType
      * @return array
      */
-    public function prepareDocument(string $docType): array
+    public function prepareDocument(): array
     {
         $data = [];
 
